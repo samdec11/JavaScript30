@@ -33,29 +33,60 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const fifteens = inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600);
+    console.log('Born in 1500s');
+    console.table(fifteens);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    const names = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+    console.log(names);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const sorts = inventors.sort((a,b) => a.year - b.year);
+    console.log('Oldest to youngest');
+    console.table(sorts);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    const years = inventors.reduce((agg, inv) => {
+      return agg + (inv.passed - inv.year);
+    }, 0)
+    console.log(`Years lived all together: ${years}`);
 
     // 5. Sort the inventors by years lived
+    const ages = inventors.sort((a,b) => {
+      return (a.passed - a.year) - (b.passed - b.year);
+    });
+    console.log('Sorted by number of years lived');
+    console.table(ages);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+    const links = document.querySelectorAll('.mw-category a');
+    Array.from(links)
+      .map(link => link.text)
+      .filter(text => text.includes('de'));
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const sortedLast = people.sort((a,b) => {
+      return a.split(', ')[0] < b.split(', ')[0] ? -1 : 1
+    })
+    console.log(sortedLast);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-
+    const sums = data.reduce((obj, trans) => {
+      if (!obj[trans]) {
+        obj[trans] = 0;
+      }
+      obj[trans]++;
+      return obj;
+    }, {});
+    console.log(sums);
   </script>
 </body>
 </html>

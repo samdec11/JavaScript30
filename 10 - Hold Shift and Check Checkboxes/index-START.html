@@ -106,13 +106,12 @@
 <script>
   const checkboxes = document.querySelectorAll('input');
   let lastCheck = 0;
-  let shifted = false;
 
-  function clickEm() {
+  function clickEm(e) {
     const checkArray = Array.from(checkboxes);
     const thisIndex = checkArray.indexOf(this);
 
-    if (shifted) {
+    if (e.shiftKey) {
       const subset = checkArray.slice(lastCheck, thisIndex + 1);
       subset.forEach(box => box.checked = this.checked);
     }
@@ -120,12 +119,6 @@
     lastCheck = thisIndex;
   }
 
-  document.body.addEventListener('keydown', (e) => {
-    if (e.key === 'Shift') {
-      shifted = true;
-    }
-  });
-  document.body.addEventListener('keyup', () => shifted = false);
   checkboxes.forEach(checkbox => checkbox.addEventListener('click', clickEm));
 </script>
 </body>
